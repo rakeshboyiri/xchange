@@ -6,6 +6,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Products from './components/Products';
 import SellForm from './pages/SellForm';
+import Chat from './components/Chat';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/products" element={<Products />} />
           <Route path="/sells" element={<SellForm />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
       </div>
     </Router>
