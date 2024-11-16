@@ -8,6 +8,11 @@ import Products from './components/Products';
 import SellForm from './pages/SellForm';
 import Chat from './components/Chat';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 const App = () => {
   return (
     <Router>

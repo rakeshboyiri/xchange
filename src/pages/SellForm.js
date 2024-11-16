@@ -3,6 +3,7 @@ import PersonalDetailsForm from '../components/innerforms/PersonalDetailsForm';
 import ProductCategoryDropdown from '../components/innerforms/ProductCategoryDropdown';
 import DynamicProductForm from '../components/innerforms/DynamicProductForm';
 import AddCategoryModal from '../components/innerforms/AddCategoryModal';
+import ButtonUsage from '../materialui/SubmitButton';
 
 const SellForm = () => {
     const [personalDetails, setPersonalDetails] = useState({
@@ -45,12 +46,9 @@ const SellForm = () => {
                     setProductDetails={setProductDetails}
                 />
             )}
-            <button
-                onClick={handleSubmit}
-                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500"
-            >
-                Submit
-            </button>
+    
+            <ButtonUsage onClick={handleSubmit}/>
+            
             <AddCategoryModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
