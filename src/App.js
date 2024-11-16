@@ -7,6 +7,8 @@ import Login from './components/Login';
 import Products from './components/Products';
 import SellForm from './pages/SellForm';
 import Chat from './components/Chat';
+import CategoryCard from './components/category/CategoryCard';
+import CategoryDetails from './components/category/CategoryDetails';
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/sells" element={<SellForm />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/cat" element={<CategoryCard />} />
+          <Route path="/category/:id" element={<CategoryDetails />} />
         </Routes>
       </div>
     </Router>
