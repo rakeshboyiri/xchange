@@ -1,12 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import Register from './components/Register';
+import Login from './components/Login';
+import Products from './components/Products';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      hello
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/products" element={<Products />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
