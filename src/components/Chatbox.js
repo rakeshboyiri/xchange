@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SvgIcon from '@mui/material/SvgIcon';
 import minlogo from '../assets/minlogo.png';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
@@ -163,7 +162,7 @@ const Chatbox = () => {
                 <input
                   type="text"
                   placeholder="Type a message..."
-                  className={`w-[85%] flex-1 p-2 rounded-lg border focus:outline-none ${isDarkMode ? "bg-gray-700 text-white border-gray-600" : "bg-white text-black border-gray-300"}`}
+                  className={`w-[85%] mr-4 p-2 rounded-lg border focus:outline-none mr ${isDarkMode ? "bg-gray-700 text-white border-gray-600" : "bg-white text-black border-gray-300"}`}
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                 />
