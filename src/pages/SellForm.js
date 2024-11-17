@@ -4,6 +4,7 @@ import ProductCategoryDropdown from '../components/innerforms/ProductCategoryDro
 import DynamicProductForm from '../components/innerforms/DynamicProductForm';
 import AddCategoryModal from '../components/innerforms/AddCategoryModal';
 import Button from '@mui/material/Button';
+import SvgIcon from '@mui/material/SvgIcon';
 
 const SellForm = () => {
     const [personalDetails, setPersonalDetails] = useState({
@@ -24,6 +25,15 @@ const SellForm = () => {
         console.log('Personal Details:', personalDetails);
         console.log('Product Details:', productDetails);
     };
+
+    //Icons from materila Ui
+    const HomeIcon = (props) => {
+        return (
+          <SvgIcon {...props}>
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </SvgIcon>
+        );
+      }
 
     return (
         <div className="max-w-3xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md space-y-6">
@@ -48,6 +58,7 @@ const SellForm = () => {
             )}
     
             <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+    
             
             
             <AddCategoryModal
