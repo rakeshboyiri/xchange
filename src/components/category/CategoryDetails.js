@@ -8,6 +8,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import MobileForm from '../categoryforms/MobileForm'; 
 import ElectronicsForm from '../categoryforms/ElectronicsForm';
+import ClothingForm from '../categoryforms/ClothingForm';
+import HomeAppliancesForm from '../categoryforms/HomeAppliancesForm';
 
 const steps = ['Personal Details', 'Category Details'];
 
@@ -90,6 +92,22 @@ const CategoryDetailsStepper = () => {
     }else if (id === '2') { 
       return (
         <ElectronicsForm
+          categoryDetails={categoryDetails}
+          setCategoryDetails={setCategoryDetails}
+        />
+      );
+    }
+    else if (id === '3') { 
+      return (
+        <ClothingForm
+          categoryDetails={categoryDetails}
+          setCategoryDetails={setCategoryDetails}
+        />
+      );
+    }
+    else if (id === '4') { 
+      return (
+        <HomeAppliancesForm
           categoryDetails={categoryDetails}
           setCategoryDetails={setCategoryDetails}
         />
