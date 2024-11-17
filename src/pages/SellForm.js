@@ -3,7 +3,7 @@ import PersonalDetailsForm from '../components/innerforms/PersonalDetailsForm';
 import ProductCategoryDropdown from '../components/innerforms/ProductCategoryDropdown';
 import DynamicProductForm from '../components/innerforms/DynamicProductForm';
 import AddCategoryModal from '../components/innerforms/AddCategoryModal';
-import ButtonUsage from '../materialui/SubmitButton';
+import Button from '@mui/material/Button';
 
 const SellForm = () => {
     const [personalDetails, setPersonalDetails] = useState({
@@ -47,7 +47,8 @@ const SellForm = () => {
                 />
             )}
     
-            <ButtonUsage onClick={handleSubmit}/>
+            <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+            
             
             <AddCategoryModal
                 isOpen={isModalOpen}

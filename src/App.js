@@ -6,7 +6,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Products from './components/Products';
 import SellForm from './pages/SellForm';
-import Chat from './components/Chat';
+import Chatbox from './components/Chatbox';
 import CategoryCard from './components/category/CategoryCard';
 import CategoryDetails from './components/category/CategoryDetails';
 
@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/products" element={<Products />} />
           <Route path="/sells" element={<SellForm />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat" element={<Chatbox />} />
           <Route path="/cat" element={<CategoryCard />} />
           <Route path="/category/:id" element={<CategoryDetails />} />
         </Routes>
