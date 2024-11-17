@@ -38,7 +38,7 @@ const CategoryCard = () => {
             <img
               src={category.image}
               alt={category.name}
-              className="w-full h-30 object-cover rounded-t-lg"
+              className="w-full h-40 object-cover rounded-t-lg"
             />
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-700">{category.name}</h3>
