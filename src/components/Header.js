@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-green-500 text-white shadow-md">
+    <header className="bg-green-500 text-white shadow-md fixed top-0 left-0 w-full z-50">
       {/* Top Section */}
       <div className="flex items-center justify-between px-6 py-4">
         {/* Logo */}
