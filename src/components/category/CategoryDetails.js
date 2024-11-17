@@ -6,53 +6,86 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import MobileForm from '../categoryforms/MobileForm'; // Import the MobileForm component
+import MobileForm from '../categoryforms/MobileForm'; // Importing the form for mobile category
 
-const steps = ['Personal Details', 'Category Details', 'Confirm & Submit'];
+const steps = ['Personal Details', 'Category Details'];
 
 const CategoryDetailsStepper = () => {
-  const { id } = useParams(); // Get category ID from URL
+  const { id } = useParams(); // Get the category id from the route
   const [activeStep, setActiveStep] = useState(0);
-  const [personalDetails, setPersonalDetails] = useState({});
-  const [categoryDetails, setCategoryDetails] = useState({});
+
+  // Form data state
+  const [personalDetails, setPersonalDetails] = useState({
+    name: '',
+    address: '',
+    street: '',
+    city: '',
+    state: '',
+    postcode: '',
+    country: '',
+    email: '',
+    phone: '',
+  });
+
+  const [categoryDetails, setCategoryDetails] = useState({
+    brand: '',
+    adName: '',
+    model: '',
+    description: '',
+    price: '',
+    condition: 'new',
+    negotiable: 'No',
+    features: '',
+  });
+
+  // Single state for images uploaded in both steps
   const [images, setImages] = useState([]);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
+  const handleNext = () => setActiveStep((prev) => prev + 1);
+  const handleBack = () => setActiveStep((prev) => prev - 1);
   const handleReset = () => {
     setActiveStep(0);
-    setPersonalDetails({});
-    setCategoryDetails({});
-    setImages([]);
-  };
-
-  // Update personal details
-  const handlePersonalDetailsChange = (e) => {
     setPersonalDetails({
-      ...personalDetails,
-      [e.target.name]: e.target.value,
+      name: '',
+      address: '',
+      street: '',
+      city: '',
+      state: '',
+      postcode: '',
+      country: '',
+      email: '',
+      phone: '',
     });
+    setCategoryDetails({
+      brand: '',
+      adName: '',
+      model: '',
+      description: '',
+      price: '',
+      condition: 'new',
+      negotiable: 'No',
+      features: '',
+    });
+    setImages([]); // Reset the images as well
   };
 
-  // Handle image uploads
+  const handlePersonalDetailsChange = (e) => {
+    setPersonalDetails({ ...personalDetails, [e.target.name]: e.target.value });
+  };
+
+  const handleCategoryDetailsChange = (e) => {
+    setCategoryDetails({ ...categoryDetails, [e.target.name]: e.target.value });
+  };
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    setImages(files);
+    setImages((prevImages) => [...prevImages, ...files]); // Append new files to existing ones
   };
 
-  // Render category-specific form based on `id`
+  // Render the form based on the category ID
   const renderCategoryForm = () => {
-    switch (id) {
-      case '1': // Mobiles
-        return <MobileForm categoryDetails={categoryDetails} setCategoryDetails={setCategoryDetails} />;
-      default:
-        return <p>No form available for this category.</p>;
+    if (id === '1') {
+      return <MobileForm categoryDetails={categoryDetails} setCategoryDetails={setCategoryDetails} />;
     }
   };
 
@@ -67,90 +100,122 @@ const CategoryDetailsStepper = () => {
       </Stepper>
 
       {activeStep === steps.length ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you're ready to submit your product!
-          </Typography>
-          <Box>
-            <Typography variant="h6">Personal Details:</Typography>
-            <pre>{JSON.stringify(personalDetails, null, 2)}</pre>
-            <Typography variant="h6">Category Details:</Typography>
-            <pre>{JSON.stringify(categoryDetails, null, 2)}</pre>
-            <Typography variant="h6">Uploaded Images:</Typography>
-            <ul>
-              {images.map((image, index) => (
-                <li key={index}>{image.name}</li>
-              ))}
-            </ul>
+        <Box className="shadow-lg p-6 bg-white rounded-md mt-6">
+          <Typography sx={{ mt: 2, mb: 1 }}>Review Your Details</Typography>
+
+          <Box className="mb-4">
+            <Typography variant="h6" className="font-bold">Personal Details:</Typography>
+            <Box sx={{ mb: 2 }}>
+              <Typography><strong>Name:</strong> {personalDetails.name}</Typography>
+              <Typography><strong>Address:</strong> {personalDetails.address}</Typography>
+              <Typography><strong>Street:</strong> {personalDetails.street}</Typography>
+              <Typography><strong>City:</strong> {personalDetails.city}</Typography>
+              <Typography><strong>State:</strong> {personalDetails.state}</Typography>
+              <Typography><strong>Postcode/Zip:</strong> {personalDetails.postcode}</Typography>
+              <Typography><strong>Country:</strong> {personalDetails.country}</Typography>
+              <Typography><strong>Email:</strong> {personalDetails.email}</Typography>
+              <Typography><strong>Phone:</strong> {personalDetails.phone}</Typography>
+            </Box>
           </Box>
+
+          <Box className="mb-4">
+            <Typography variant="h6" className="font-bold">Category Details:</Typography>
+            <Box sx={{ mb: 2 }}>
+              <Typography><strong>Brand:</strong> {categoryDetails.brand}</Typography>
+              <Typography><strong>Ad Name:</strong> {categoryDetails.adName}</Typography>
+              <Typography><strong>Model:</strong> {categoryDetails.model}</Typography>
+              <Typography><strong>Description:</strong> {categoryDetails.description}</Typography>
+              <Typography><strong>Price:</strong> {categoryDetails.price}</Typography>
+              <Typography><strong>Condition:</strong> {categoryDetails.condition}</Typography>
+              <Typography><strong>Negotiable:</strong> {categoryDetails.negotiable}</Typography>
+              <Typography><strong>Features:</strong> {categoryDetails.features}</Typography>
+            </Box>
+          </Box>
+
+          <Box className="mb-4">
+            <Typography variant="h6" className="font-bold">Uploaded Images:</Typography>
+            <Box sx={{ mb: 2 }}>
+              {images.length > 0 ? (
+                <ul>
+                  {images.map((image, index) => (
+                    <li key={index}>
+                      <img 
+                        src={URL.createObjectURL(image)} 
+                        alt={`Uploaded ${index}`} 
+                        style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }} 
+                      />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <Typography>No images uploaded</Typography>
+              )}
+            </Box>
+          </Box>
+
           <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 2 }}>
             <Button onClick={handleReset}>Reset</Button>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={() => alert('Form Submitted')}>
               Submit
             </Button>
           </Box>
-        </React.Fragment>
+        </Box>
       ) : (
-        <React.Fragment>
+        <Box>
           {activeStep === 0 && (
-            <Box>
-              <Typography variant="h6">Step 1: Personal Details</Typography>
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                className="w-full p-2 border border-gray-300 rounded mb-2"
-                onChange={handlePersonalDetailsChange}
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="w-full p-2 border border-gray-300 rounded mb-2"
-                onChange={handlePersonalDetailsChange}
-              />
-              <input
-                type="text"
-                name="phone"
-                placeholder="Phone"
-                className="w-full p-2 border border-gray-300 rounded mb-2"
-                onChange={handlePersonalDetailsChange}
-              />
+            <Box display="flex" flexDirection="column" gap={2}>
+              <Typography variant="h6" className="font-bold">Personal Details</Typography>
+              {[
+                { label: 'Name', name: 'name' },
+                { label: 'Address', name: 'address' },
+                { label: 'Street/Village', name: 'street' },
+                { label: 'Town/City', name: 'city' },
+                { label: 'State', name: 'state' },
+                { label: 'Country', name: 'country' },
+                { label: 'Postcode/Zip', name: 'postcode' },
+                { label: 'Email', name: 'email', type: 'email' },
+                { label: 'Phone', name: 'phone' },
+              ].map(({ label, name, type = 'text' }) => (
+                <Box key={name} display="flex" flexDirection="column">
+                  <label htmlFor={name}>{label} *</label>
+                  <input
+                    type={type}
+                    name={name}
+                    placeholder={label}
+                    className="w-full px-4 py-2 border border-gray-300 rounded mb-4"
+                    onChange={handlePersonalDetailsChange}
+                    value={personalDetails[name]}
+                    required
+                  />
+                </Box>
+              ))}
+              <Button variant="contained" color="primary" onClick={handleNext} sx={{ mt: 2 }}>
+                Save & Continue
+              </Button>
             </Box>
           )}
 
           {activeStep === 1 && (
-            <Box>
+            <Box className="shadow-lg p-6 bg-white rounded-md mb-6">
               <Typography variant="h6">Step 2: Category Details</Typography>
-              {renderCategoryForm()}
+              {renderCategoryForm()} {/* Dynamically load the form based on the category */}
+              
+              {/* Image upload for category */}
+              <Typography variant="subtitle1" className="font-semibold">Upload Images for Category</Typography>
               <input
                 type="file"
                 multiple
                 onChange={handleImageChange}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full px-4 py-2 border border-gray-300 rounded mb-4"
               />
+
+              {/* Save button */}
+              <Button variant="contained" color="primary" onClick={handleNext} sx={{ mt: 2 }}>
+                Save & Continue
+              </Button>
             </Box>
           )}
-
-          {activeStep === 2 && (
-            <Box>
-              <Typography variant="h6">Step 3: Confirm & Submit</Typography>
-              <Typography>Name: {personalDetails.name}</Typography>
-              <Typography>Email: {personalDetails.email}</Typography>
-              <Typography>Phone: {personalDetails.phone}</Typography>
-              <Typography>Category Details: {JSON.stringify(categoryDetails, null, 2)}</Typography>
-            </Box>
-          )}
-
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 2 }}>
-            <Button disabled={activeStep === 0} onClick={handleBack}>
-              Back
-            </Button>
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
-          </Box>
-        </React.Fragment>
+        </Box>
       )}
     </Box>
   );

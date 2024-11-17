@@ -1,160 +1,167 @@
-// MobileForm.js (Form details for Mobile category)
-
 import React, { useState } from 'react';
-import { Button, TextField, MenuItem, Select, InputLabel, FormControl, Box } from '@mui/material';
 
-const MobileForm = () => {
-  const [features, setFeatures] = useState([]);
-  const [feature, setFeature] = useState('');
-  const [brand, setBrand] = useState('');
-  const [adName, setAdName] = useState('');
-  const [model, setModel] = useState('');
-  const [adDescription, setAdDescription] = useState('');
-  const [adPrice, setAdPrice] = useState('');
-  const [condition, setCondition] = useState('');
-  const [negotiable, setNegotiable] = useState('');
-  const [photo, setPhoto] = useState(null);
+const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
+  const [errors, setErrors] = useState({});
+  
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCategoryDetails({ ...categoryDetails, [name]: value });
+  };
 
-  const handleAddFeature = () => {
-    if (feature && !features.includes(feature)) {
-      setFeatures([...features, feature]);
-      setFeature('');
+  const handleValidation = () => {
+    const newErrors = {};
+    Object.keys(categoryDetails).forEach((key) => {
+      if (!categoryDetails[key] && key !== 'negotiable') {
+        newErrors[key] = 'This field is required';
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleNext = (e) => {
+    if (handleValidation()) {
+      e.preventDefault();
+    } else {
+      e.preventDefault();
     }
   };
 
-  const handleRemoveFeature = (featureToRemove) => {
-    setFeatures(features.filter((f) => f !== featureToRemove));
-  };
-
   return (
-    <>
-      <Box sx={{ mb: 2 }}>
-        <TextField
-          label="Brand"
-          fullWidth
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
-          required
-        />
-      </Box>
-
-      <Box sx={{ mb: 2 }}>
-        <TextField
-          label="Ad Name"
-          fullWidth
-          value={adName}
-          onChange={(e) => setAdName(e.target.value)}
-          required
-        />
-      </Box>
-
-      <Box sx={{ mb: 2 }}>
-        <TextField
-          label="Model"
-          fullWidth
-          value={model}
-          onChange={(e) => setModel(e.target.value)}
-          required
-        />
-      </Box>
-
-      <Box sx={{ mb: 2 }}>
-        <TextField
-          label="Ad Description"
-          fullWidth
-          value={adDescription}
-          onChange={(e) => setAdDescription(e.target.value)}
-          multiline
-          rows={4}
-        />
-      </Box>
-
-      <Box sx={{ mb: 2 }}>
-        <TextField
-          label="Ad Price"
-          type="number"
-          fullWidth
-          value={adPrice}
-          onChange={(e) => setAdPrice(e.target.value)}
-          required
-        />
-      </Box>
-
-      <Box sx={{ mb: 2 }}>
-        <FormControl fullWidth>
-          <InputLabel>Condition</InputLabel>
-          <Select
-            value={condition}
-            onChange={(e) => setCondition(e.target.value)}
-            required
-          >
-            <MenuItem value="New">New</MenuItem>
-            <MenuItem value="Used">Used</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-
-      <Box sx={{ mb: 2 }}>
-        <FormControl fullWidth>
-          <InputLabel>Negotiable</InputLabel>
-          <Select
-            value={negotiable}
-            onChange={(e) => setNegotiable(e.target.value)}
-            required
-          >
-            <MenuItem value="Yes">Yes</MenuItem>
-            <MenuItem value="No">No</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-
-      <Box sx={{ mb: 2 }}>
+    <form onSubmit={handleNext} className="w-full max-w-lg mx-auto ml-0 p-6 bg-white shadow-md rounded-lg">
+      <div className="mb-4">
+        <label className="block font-semibold text-sm mb-1" htmlFor="brand">
+          Brand *
+        </label>
         <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setPhoto(e.target.files[0])}
+          type="text"
+          name="brand"
+          id="brand"
+          value={categoryDetails.brand}
+          onChange={handleInputChange}
+          className={`w-full p-3 border ${errors.brand ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required
         />
-        <p>{photo ? `File: ${photo.name}` : 'No file chosen'}</p>
-      </Box>
+        {errors.brand && <p className="text-red-500 text-xs mt-1">{errors.brand}</p>}
+      </div>
 
-      {/* Features Section */}
-      <Box sx={{ mb: 2 }}>
-        <TextField
-          label="Feature"
-          fullWidth
-          value={feature}
-          onChange={(e) => setFeature(e.target.value)}
+      <div className="mb-4">
+        <label className="block font-semibold text-sm mb-1" htmlFor="adName">
+          Ad Name *
+        </label>
+        <input
+          type="text"
+          name="adName"
+          id="adName"
+          value={categoryDetails.adName}
+          onChange={handleInputChange}
+          className={`w-full p-3 border ${errors.adName ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
+          required
         />
-        <Button variant="outlined" color="primary" onClick={handleAddFeature}>
-          Add Feature
-        </Button>
-      </Box>
+        {errors.adName && <p className="text-red-500 text-xs mt-1">{errors.adName}</p>}
+      </div>
 
-      {features.length > 0 && (
-        <Box sx={{ mb: 2 }}>
-          <ul>
-            {features.map((f, index) => (
-              <li key={index}>
-                {f}{' '}
-                <Button onClick={() => handleRemoveFeature(f)} color="error">
-                  ❌
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </Box>
-      )}
+      <div className="mb-4">
+        <label className="block font-semibold text-sm mb-1" htmlFor="model">
+          Model *
+        </label>
+        <input
+          type="text"
+          name="model"
+          id="model"
+          value={categoryDetails.model}
+          onChange={handleInputChange}
+          className={`w-full p-3 border ${errors.model ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
+          required
+        />
+        {errors.model && <p className="text-red-500 text-xs mt-1">{errors.model}</p>}
+      </div>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-        <Button variant="outlined" color="secondary" type="button">
-          Save as Draft
-        </Button>
-        <Button variant="contained" color="primary" type="submit">
-          Post Ad
-        </Button>
-      </Box>
-    </>
+      <div className="mb-4">
+        <label className="block font-semibold text-sm mb-1" htmlFor="description">
+          Description *
+        </label>
+        <textarea
+          name="description"
+          id="description"
+          value={categoryDetails.description}
+          onChange={handleInputChange}
+          className={`w-full p-3 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
+          required
+        />
+        {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-semibold text-sm mb-1" htmlFor="price">
+          Price *
+        </label>
+        <input
+          type="number"
+          name="price"
+          id="price"
+          value={categoryDetails.price}
+          onChange={handleInputChange}
+          className={`w-full p-3 border ${errors.price ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
+          required
+        />
+        {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price}</p>}
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-semibold text-sm mb-1" htmlFor="condition">
+          Condition *
+        </label>
+        <select
+          name="condition"
+          id="condition"
+          value={categoryDetails.condition}
+          onChange={handleInputChange}
+          className={`w-full p-3 border ${errors.condition ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
+          required
+        >
+          <option value="">Select Condition</option>
+          <option value="new">New</option>
+          <option value="used">Used</option>
+        </select>
+        {errors.condition && <p className="text-red-500 text-xs mt-1">{errors.condition}</p>}
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-semibold text-sm mb-1" htmlFor="negotiable">
+          Negotiable *
+        </label>
+        <select
+          name="negotiable"
+          id="negotiable"
+          value={categoryDetails.negotiable}
+          onChange={handleInputChange}
+          className={`w-full p-3 border ${errors.negotiable ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
+          required
+        >
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+        {errors.negotiable && <p className="text-red-500 text-xs mt-1">{errors.negotiable}</p>}
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-semibold text-sm mb-1" htmlFor="features">
+          Features *
+        </label>
+        <input
+          type="text"
+          name="features"
+          id="features"
+          value={categoryDetails.features}
+          onChange={handleInputChange}
+          className={`w-full p-3 border ${errors.features ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
+          required
+        />
+        {errors.features && <p className="text-red-500 text-xs mt-1">{errors.features}</p>}
+      </div>
+    </form>
   );
 };
 
