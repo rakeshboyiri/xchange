@@ -19,12 +19,31 @@ const Chatbox = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+  const [attachedFile, setAttachedFile] = useState(null);
 
   const emojis = ["😊", "😂", "😍", "😎", "😭", "🥺", "😜", "😇", "😡", "😢"];
 
   const sendMessage = () => {
-    if (newMessage.trim() && currentContact) {
-      setMessages([...messages, { sender: "You", text: newMessage, time: "Just now" }]);
+    if (newMessage.trim() || attachedFile) {
+      const newMessages = [...messages];
+
+      // Add the new message
+      if (newMessage.trim()) {
+        newMessages.push({ sender: "You", text: newMessage, time: "Just now" });
+      }
+
+      // Add the attached file (if any)
+      if (attachedFile) {
+        newMessages.push({
+          sender: "You",
+          text: `File: ${attachedFile.name}`,
+          time: "Just now",
+          file: attachedFile,
+        });
+        setAttachedFile(null); // Clear attached file after sending
+      }
+
+      setMessages(newMessages);
       setNewMessage("");
     }
   };
@@ -56,13 +75,20 @@ const Chatbox = () => {
     setEmojiPickerVisible(false); // Hide emoji picker after selection
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setAttachedFile(file);
+    }
+  };
+
   return (
     <div className={`h-screen ${isDarkMode ? "bg-black text-white" : "bg-white text-black"} transition-colors`}>
       <div className="flex h-full">
         {/* Sidebar */}
         <div className={`w-1/5 ${isDarkMode ? "bg-gray-800 text-gray-200" : "bg-gray-100 text-gray-800"} border-r transition-colors`}>
           <div className="p-4">
-            <div className="w-14 p-2  rounded-sm focus:outline-none cursor-pointer">
+            <div className="w-14 p-2 rounded-sm focus:outline-none cursor-pointer">
               <Link to="/">
                 <img src={minlogo} alt="Logo" />
               </Link>
@@ -118,6 +144,9 @@ const Chatbox = () => {
                   <div key={index} className={`mb-4 flex ${message.sender === "You" ? "justify-end" : "justify-start"}`}>
                     <div className={`p-3 rounded-lg ${message.sender === "You" ? "bg-blue-500 text-white" : isDarkMode ? "bg-gray-700 text-gray-200" : "bg-gray-300 text-gray-800"}`}>
                       <p className="text-sm">{message.text}</p>
+                      {message.file && (
+                        <p className="text-sm underline text-blue-400">{message.file.name}</p>
+                      )}
                       <p className="text-xs mt-1 text-gray-400">{message.time}</p>
                     </div>
                   </div>
@@ -127,35 +156,34 @@ const Chatbox = () => {
                 <button onClick={() => setEmojiPickerVisible(!emojiPickerVisible)} className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400 transition-transform transform hover:scale-110 mr-3" title="Emoji">
                   😊
                 </button>
-                <button className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400 transition-transform transform hover:scale-110 mr-3" title="Attach File">
+                <label className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400 transition-transform transform hover:scale-110 mr-3 cursor-pointer" title="Attach File">
                   📎
-                </button>
-                {emojiPickerVisible && (
-                  <div className="absolute bottom-16 left-4 bg-white p-2 rounded-lg shadow-lg">
-                    <div className="grid grid-cols-4 gap-2">
-                      {emojis.map((emoji, index) => (
-                        <button key={index} onClick={() => handleEmojiClick(emoji)} className="text-xl">
-                          {emoji}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                  <input type="file" className="hidden" onChange={handleFileChange} />
+                </label>
                 <input
                   type="text"
-                  placeholder="Type your message..."
-                  className={`w-[85%] border rounded-full p-2 focus:outline-none focus:ring-2 mr-4 ${isDarkMode ? "bg-gray-700 text-white" : "bg-white text-black "}`}
+                  placeholder="Type a message..."
+                  className={`w-[85%] flex-1 p-2 rounded-lg border focus:outline-none ${isDarkMode ? "bg-gray-700 text-white border-gray-600" : "bg-white text-black border-gray-300"}`}
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                 />
-                <Button variant="contained" endIcon={<SendIcon />} onClick={sendMessage} className="px-6" color="primary">
+                <Button variant="contained" color="primary" endIcon={<SendIcon />} onClick={sendMessage} className="ml-2">
                   Send
                 </Button>
               </div>
+              {emojiPickerVisible && (
+                <div className="absolute bottom-16 left-4 flex space-x-2 bg-white dark:bg-gray-700 p-2 rounded-lg shadow-lg">
+                  {emojis.map((emoji, index) => (
+                    <span key={index} onClick={() => handleEmojiClick(emoji)} className="text-lg cursor-pointer hover:scale-110 transition-transform">
+                      {emoji}
+                    </span>
+                  ))}
+                </div>
+              )}
             </>
           ) : (
-            <div className="flex-1 flex items-center justify-center">
-              <p className="text-xl text-gray-500">Select a contact to start chatting</p>
+            <div className="flex items-center justify-center flex-1 text-center">
+              <h2 className="text-xl font-semibold">Select a contact to start chatting</h2>
             </div>
           )}
         </div>
