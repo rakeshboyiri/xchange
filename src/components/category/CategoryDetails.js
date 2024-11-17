@@ -6,7 +6,8 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import MobileForm from '../categoryforms/MobileForm'; // Importing the form for mobile category
+import MobileForm from '../categoryforms/MobileForm'; 
+import ElectronicsForm from '../categoryforms/ElectronicsForm';
 
 const steps = ['Personal Details', 'Category Details'];
 
@@ -66,7 +67,7 @@ const CategoryDetailsStepper = () => {
       negotiable: 'No',
       features: '',
     });
-    setImages([]); // Reset the images as well
+    setImages([]);
   };
 
   const handlePersonalDetailsChange = (e) => {
@@ -86,6 +87,13 @@ const CategoryDetailsStepper = () => {
   const renderCategoryForm = () => {
     if (id === '1') {
       return <MobileForm categoryDetails={categoryDetails} setCategoryDetails={setCategoryDetails} />;
+    }else if (id === '2') { 
+      return (
+        <ElectronicsForm
+          categoryDetails={categoryDetails}
+          setCategoryDetails={setCategoryDetails}
+        />
+      );
     }
   };
 
