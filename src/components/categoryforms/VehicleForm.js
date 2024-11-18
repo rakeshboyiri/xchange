@@ -30,14 +30,15 @@ const VehicleForm = ({ vehicleCategoryDetails, setVehicleCategoryDetails }) => {
   };
 
   return (
-    <form onSubmit={handleNext} className="w-full max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+    <form onSubmit={handleNext} className="w-full max-w-lg mx-auto p-6 bg-gray-100 ml-0 shadow-md rounded-lg">
       {[
-        { label: 'Type', name: 'type', type: 'select', options: ['New', 'Used'] },
+        { label: 'Vehicle Type', name: 'type', type: 'select', options: ['Two-wheeler', 'Four-Wheeler','six-wheeler'] },
         { label: 'Brand', name: 'brand', type: 'text' },
         { label: 'Ad Name', name: 'adName', type: 'text' },
         { label: 'Model', name: 'model', type: 'text' },
         { label: 'Description', name: 'description', type: 'textarea' },
         { label: 'Price', name: 'price', type: 'number' },
+        { label: 'Type', name: 'type', type: 'select', options: ['New', 'Used'] },
         { label: 'Condition', name: 'condition', type: 'select', options: ['New', 'Used'] },
         { label: 'Negotiable', name: 'negotiable', type: 'select', options: ['Yes', 'No'] },
         { label: 'Features', name: 'features', type: 'textarea' },
@@ -93,12 +94,6 @@ const VehicleForm = ({ vehicleCategoryDetails, setVehicleCategoryDetails }) => {
         </div>
       ))}
 
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-      >
-        Submit
-      </button>
     </form>
   );
 };

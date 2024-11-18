@@ -35,26 +35,7 @@ const ElectronicsForm = ({ electronicsCategoryDetails, setElectronicsCategoryDet
   };
 
   return (
-    <form onSubmit={handleNext} className="w-full max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-      {/* Category */}
-      <div className="mb-4">
-        <label className="block font-semibold text-sm mb-1" htmlFor="category">
-          Category *
-        </label>
-        <select
-          name="category"
-          id="category"
-          value={electronicsCategoryDetails.category}
-          onChange={handleInputChange}
-          className={`w-full p-3 border ${errors.category ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
-        >
-          <option value="">Select Category</option>
-          <option value="electronics">Electronics</option>
-        </select>
-        {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category}</p>}
-      </div>
-
-      {/* Brand */}
+    <form onSubmit={handleNext} className="w-full max-w-lg mx-auto p-6 bg-gray-100 shadow-md rounded-lg ml-0">
       <div className="mb-4">
         <label className="block font-semibold text-sm mb-1" htmlFor="brand">
           Brand *
@@ -202,14 +183,6 @@ const ElectronicsForm = ({ electronicsCategoryDetails, setElectronicsCategoryDet
           <option value="5 Star">5 Star</option>
         </select>
       </div>
-
-      {/* Submit Button */}
-      <button
-        type="submit"
-        className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600"
-      >
-        Next
-      </button>
     </form>
   );
 };
