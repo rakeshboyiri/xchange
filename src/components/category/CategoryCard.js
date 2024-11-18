@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "../Header";
-import backgroundImage1 from "../../assets/back.svg"; // First background image
 import mobile from "../../assets/Mobile.jpeg";
 import electonics from "../../assets/electronic.jpg";
 import vehicles from "../../assets/vehicle.jpg";
@@ -82,7 +81,7 @@ const CategoryCard = () => {
             Select a Category
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {categories.map((category, index) => (
+            {categories.map((category) => (
               <motion.div
                 key={category.id}
                 className="relative bg-white shadow-lg rounded-md overflow-hidden cursor-pointer"
