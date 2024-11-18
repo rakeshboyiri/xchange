@@ -32,7 +32,7 @@ const MobileForm = ({ mobileCategoryDetails, setMobileCategoryDetails }) => {
     <div>
       <form
         onSubmit={handleNext}
-        className="w-full max-w-lg mx-auto ml-0 p-6 bg-gray-100 shadow-md rounded-lg"
+        className="w-full max-w-lg mx-auto  p-6 bg-gray-100 shadow-md rounded-lg"
       >
         <div className="mb-4">
           <label className="block font-semibold text-sm mb-1" htmlFor="brand">

@@ -30,7 +30,7 @@ const VehicleForm = ({ vehicleCategoryDetails, setVehicleCategoryDetails }) => {
   };
 
   return (
-    <form onSubmit={handleNext} className="w-full max-w-lg mx-auto p-6 bg-gray-100 ml-0 shadow-md rounded-lg">
+    <form onSubmit={handleNext} className="w-full max-w-lg mx-auto p-6 bg-gray-100  shadow-md rounded-lg">
       {[
         { label: 'Vehicle Type', name: 'type', type: 'select', options: ['Two-wheeler', 'Four-Wheeler','six-wheeler'] },
         { label: 'Brand', name: 'brand', type: 'text' },
