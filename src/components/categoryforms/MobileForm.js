@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 
-const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
+const MobileForm = ({ mobileCategoryDetails, setMobileCategoryDetails }) => {
   const [errors, setErrors] = useState({});
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCategoryDetails({ ...categoryDetails, [name]: value });
+    setMobileCategoryDetails({ ...mobileCategoryDetails, [name]: value });
   };
 
   const handleValidation = () => {
     const newErrors = {};
-    Object.keys(categoryDetails).forEach((key) => {
-      if (!categoryDetails[key] && key !== 'negotiable') {
+    Object.keys(mobileCategoryDetails).forEach((key) => {
+      if (!mobileCategoryDetails[key] && key !== 'negotiable') {
         newErrors[key] = 'This field is required';
       }
     });
@@ -38,7 +38,7 @@ const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
           type="text"
           name="brand"
           id="brand"
-          value={categoryDetails.brand}
+          value={mobileCategoryDetails.brand}
           onChange={handleInputChange}
           className={`w-full p-3 border ${errors.brand ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required
@@ -54,7 +54,7 @@ const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
           type="text"
           name="adName"
           id="adName"
-          value={categoryDetails.adName}
+          value={mobileCategoryDetails.adName}
           onChange={handleInputChange}
           className={`w-full p-3 border ${errors.adName ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required
@@ -70,7 +70,7 @@ const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
           type="text"
           name="model"
           id="model"
-          value={categoryDetails.model}
+          value={mobileCategoryDetails.model}
           onChange={handleInputChange}
           className={`w-full p-3 border ${errors.model ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required
@@ -85,7 +85,7 @@ const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
         <textarea
           name="description"
           id="description"
-          value={categoryDetails.description}
+          value={mobileCategoryDetails.description}
           onChange={handleInputChange}
           className={`w-full p-3 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required
@@ -101,7 +101,7 @@ const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
           type="number"
           name="price"
           id="price"
-          value={categoryDetails.price}
+          value={mobileCategoryDetails.price}
           onChange={handleInputChange}
           className={`w-full p-3 border ${errors.price ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required
@@ -116,7 +116,7 @@ const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
         <select
           name="condition"
           id="condition"
-          value={categoryDetails.condition}
+          value={mobileCategoryDetails.condition}
           onChange={handleInputChange}
           className={`w-full p-3 border ${errors.condition ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required
@@ -135,7 +135,7 @@ const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
         <select
           name="negotiable"
           id="negotiable"
-          value={categoryDetails.negotiable}
+          value={mobileCategoryDetails.negotiable}
           onChange={handleInputChange}
           className={`w-full p-3 border ${errors.negotiable ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required
@@ -154,7 +154,7 @@ const MobileForm = ({ categoryDetails, setCategoryDetails }) => {
           type="text"
           name="features"
           id="features"
-          value={categoryDetails.features}
+          value={mobileCategoryDetails.features}
           onChange={handleInputChange}
           className={`w-full p-3 border ${errors.features ? 'border-red-500' : 'border-gray-300'} rounded-lg`}
           required

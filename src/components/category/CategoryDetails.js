@@ -10,6 +10,13 @@ import MobileForm from '../categoryforms/MobileForm';
 import ElectronicsForm from '../categoryforms/ElectronicsForm';
 import ClothingForm from '../categoryforms/ClothingForm';
 import HomeAppliancesForm from '../categoryforms/HomeAppliancesForm';
+import EssentialsForm from '../categoryforms/EssentialsForm';
+import FurnitureForm from '../categoryforms/FurnitureForm';
+import HomeAndLivingForm from '../categoryforms/HomeAndLivingForm';
+// import PropertiesForm from '../categoryforms/PropertiesForm';
+import VehicleForm from '../categoryforms/VehicleForm';
+
+
 
 const steps = ['Personal Details', 'Category Details'];
 
@@ -30,6 +37,52 @@ const CategoryDetailsStepper = () => {
     phone: '',
   });
 
+  const [mobileCategoryDetails, setMobileCategoryDetails] = useState({
+      brand: '',
+      adName: '',
+      model: '',
+      description: '',
+      price: '',
+      condition: 'new',
+      negotiable: 'No',
+      features: '',
+  });
+
+  const [electronicsCategoryDetails, setElectronicsCategoryDetails] = useState({
+    category: '',
+    brand: '',
+    type: '',
+    model: '',
+    description: '',
+    price: '',
+    condition: 'new',
+    negotiable: 'No',
+    features: '',
+    erating: 'No',
+  });
+  
+
+  const [vehicleCategoryDetails, setVehicleCategoryDetails] = useState({
+    type : '',
+    brand: '',
+    adName: '',
+    model: '',
+    description: '',
+    price: '',
+    condition: 'new',
+    negotiable: 'No',
+    features: '',
+    mof : '',
+    mileage : '',
+    FuelType : '',
+    transmission : '',
+    engine : '',
+    color : '',
+    Year : '',
+  });
+
+
+
   const [categoryDetails, setCategoryDetails] = useState({
     brand: '',
     adName: '',
@@ -45,7 +98,7 @@ const CategoryDetailsStepper = () => {
   const [images, setImages] = useState([]);
 
   const handleNext = () => setActiveStep((prev) => prev + 1);
-  const handleBack = () => setActiveStep((prev) => prev - 1);
+  //const handleBack = () => setActiveStep((prev) => prev - 1);
   const handleReset = () => {
     setActiveStep(0);
     setPersonalDetails({
@@ -69,16 +122,61 @@ const CategoryDetailsStepper = () => {
       negotiable: 'No',
       features: '',
     });
+    setMobileCategoryDetails({
+      brand: '',
+      adName: '',
+      model: '',
+      description: '',
+      price: '',
+      condition: 'new',
+      negotiable: 'No',
+      features: '',
+    });
+    setElectronicsCategoryDetails({
+      brand: '',
+      type: '',
+      model: '',
+      description: '',
+      price: '',
+      condition: 'new',
+      negotiable: 'No',
+      features: '',
+      erating : 'No',
+    });
+
+    
+    setVehicleCategoryDetails({
+      type : '',
+      brand: '',
+      adName: '',
+      model: '',
+      description: '',
+      price: '',
+      condition: 'new',
+      negotiable: 'No',
+      features: '',
+      mof : '',
+      mileage : '',
+      FuelType : '',
+      transmission : '',
+      engine : '',
+      color : '',
+      Year : '',
+    });
+
+    
     setImages([]);
   };
+
+  
 
   const handlePersonalDetailsChange = (e) => {
     setPersonalDetails({ ...personalDetails, [e.target.name]: e.target.value });
   };
 
-  const handleCategoryDetailsChange = (e) => {
-    setCategoryDetails({ ...categoryDetails, [e.target.name]: e.target.value });
-  };
+  // const handleCategoryDetailsChange = (e) => {
+  //   setCategoryDetails({ ...categoryDetails, [e.target.name]: e.target.value });
+  // };
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -88,26 +186,58 @@ const CategoryDetailsStepper = () => {
   // Render the form based on the category ID
   const renderCategoryForm = () => {
     if (id === '1') {
-      return <MobileForm categoryDetails={categoryDetails} setCategoryDetails={setCategoryDetails} />;
+      return <MobileForm mobileCategoryDetails={mobileCategoryDetails} setMobileCategoryDetails={setMobileCategoryDetails} />;
     }else if (id === '2') { 
       return (
         <ElectronicsForm
-          categoryDetails={categoryDetails}
-          setCategoryDetails={setCategoryDetails}
+        electronicsCategoryDetails={electronicsCategoryDetails}
+        setElectronicsCategoryDetails={setElectronicsCategoryDetails}
         />
       );
     }
     else if (id === '3') { 
       return (
-        <ClothingForm
-          categoryDetails={categoryDetails}
-          setCategoryDetails={setCategoryDetails}
+        <VehicleForm
+        vehicleCategoryDetails={vehicleCategoryDetails}
+        setVehicleCategoryDetails={setVehicleCategoryDetails}
         />
       );
     }
     else if (id === '4') { 
       return (
         <HomeAppliancesForm
+          categoryDetails={categoryDetails}
+          setCategoryDetails={setCategoryDetails}
+        />
+      );
+    }
+    else if (id === '5') { 
+      return (
+        <EssentialsForm
+          categoryDetails={categoryDetails}
+          setCategoryDetails={setCategoryDetails}
+        />
+      );
+    }
+    else if (id === '6') { 
+      return (
+        <FurnitureForm
+          categoryDetails={categoryDetails}
+          setCategoryDetails={setCategoryDetails}
+        />
+      );
+    }
+    else if (id === '7') { 
+      return (
+        <HomeAndLivingForm
+          categoryDetails={categoryDetails}
+          setCategoryDetails={setCategoryDetails}
+        />
+      );
+    }
+    else if (id === '8') { 
+      return (
+        <ClothingForm
           categoryDetails={categoryDetails}
           setCategoryDetails={setCategoryDetails}
         />
@@ -143,20 +273,61 @@ const CategoryDetailsStepper = () => {
               <Typography><strong>Phone:</strong> {personalDetails.phone}</Typography>
             </Box>
           </Box>
-
+          
           <Box className="mb-4">
-            <Typography variant="h6" className="font-bold">Category Details:</Typography>
-            <Box sx={{ mb: 2 }}>
-              <Typography><strong>Brand:</strong> {categoryDetails.brand}</Typography>
-              <Typography><strong>Ad Name:</strong> {categoryDetails.adName}</Typography>
-              <Typography><strong>Model:</strong> {categoryDetails.model}</Typography>
-              <Typography><strong>Description:</strong> {categoryDetails.description}</Typography>
-              <Typography><strong>Price:</strong> {categoryDetails.price}</Typography>
-              <Typography><strong>Condition:</strong> {categoryDetails.condition}</Typography>
-              <Typography><strong>Negotiable:</strong> {categoryDetails.negotiable}</Typography>
-              <Typography><strong>Features:</strong> {categoryDetails.features}</Typography>
-            </Box>
-          </Box>
+  <Typography variant="h6" className="font-bold">Category Details:</Typography>
+  <Box sx={{ mb: 2 }}>
+    {id === '1' && (
+  <>
+    <Typography><strong>Brand:</strong> {mobileCategoryDetails.brand}</Typography>
+    <Typography><strong>Ad Name:</strong> {mobileCategoryDetails.adName}</Typography>
+    <Typography><strong>Model:</strong> {mobileCategoryDetails.model}</Typography>
+    <Typography><strong>Description:</strong> {mobileCategoryDetails.description}</Typography>
+    <Typography><strong>Price:</strong> {mobileCategoryDetails.price}</Typography>
+    <Typography><strong>Condition:</strong> {mobileCategoryDetails.condition}</Typography>
+    <Typography><strong>Negotiable:</strong> {mobileCategoryDetails.negotiable}</Typography>
+    <Typography><strong>Features:</strong> {mobileCategoryDetails.features}</Typography>
+  </>
+)}
+
+{id === '2' && (
+  <>
+    <Typography><strong>Brand:</strong> {electronicsCategoryDetails.brand}</Typography>
+    <Typography><strong>type:</strong> {electronicsCategoryDetails.type}</Typography>
+    <Typography><strong>Model:</strong> {electronicsCategoryDetails.model}</Typography>
+    <Typography><strong>Description:</strong> {electronicsCategoryDetails.description}</Typography>
+    <Typography><strong>Price:</strong> {electronicsCategoryDetails.price}</Typography>
+    <Typography><strong>Condition:</strong> {electronicsCategoryDetails.condition}</Typography>
+    <Typography><strong>Negotiable:</strong> {electronicsCategoryDetails.negotiable}</Typography>
+    <Typography><strong>Features:</strong> {electronicsCategoryDetails.features}</Typography>
+    <Typography><strong>Erating:</strong> {electronicsCategoryDetails.erating}</Typography>
+  </>
+)}
+
+{id === '3' && (
+  <>
+    <Typography><strong>Type:</strong> {vehicleCategoryDetails.type}</Typography>
+    <Typography><strong>Brand:</strong> {vehicleCategoryDetails.brand }</Typography>
+    <Typography><strong>Ad Name:</strong> {vehicleCategoryDetails.adName}</Typography>
+    <Typography><strong>Model:</strong> {vehicleCategoryDetails.model}</Typography>
+    <Typography><strong>Description:</strong> {vehicleCategoryDetails.description}</Typography>
+    <Typography><strong>Price:</strong> {vehicleCategoryDetails.price}</Typography>
+    <Typography><strong>Condition:</strong> {vehicleCategoryDetails.condition}</Typography>
+    <Typography><strong>Negotiable:</strong> {vehicleCategoryDetails.negotiable}</Typography>
+    <Typography><strong>Features:</strong> {vehicleCategoryDetails.features}</Typography>
+    <Typography><strong>mof:</strong> {vehicleCategoryDetails.mof}</Typography>
+    <Typography><strong>mileage:</strong> {vehicleCategoryDetails.mileage}</Typography>
+    <Typography><strong>FuelType:</strong> {vehicleCategoryDetails.FuelType}</Typography>
+    <Typography><strong>transmission:</strong> {vehicleCategoryDetails.transmission}</Typography>
+    <Typography><strong>Engine:</strong> {vehicleCategoryDetails.engine}</Typography>
+    <Typography><strong>Color:</strong> {vehicleCategoryDetails.color}</Typography>
+    <Typography><strong>Year:</strong> {vehicleCategoryDetails.Year}</Typography>
+  </>
+)}
+  </Box>
+</Box>
+
+        
 
           <Box className="mb-4">
             <Typography variant="h6" className="font-bold">Uploaded Images:</Typography>
