@@ -85,7 +85,7 @@ const Chatbox = () => {
     <div className={`h-screen ${isDarkMode ? "bg-black text-white" : "bg-white text-black"} transition-colors`}>
       <div className="flex h-full">
         {/* Sidebar */}
-        <div className={`w-1/5 ${isDarkMode ? "bg-gray-800 text-gray-200" : "bg-gray-100 text-gray-800"} border-r transition-colors`}>
+        <div className={`w-2/7 ${isDarkMode ? "bg-gray-800 text-gray-200" : "bg-gray-100 text-gray-800"} border-r transition-colors`}>
           <div className="p-4">
             <div className="w-14 p-2 rounded-sm focus:outline-none cursor-pointer">
               <Link to="/">
