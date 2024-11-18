@@ -15,6 +15,7 @@ import groceries from "../../assets/groceries.webp";
 import sports from "../../assets/sports.jpeg";
 import books from "../../assets/books.jpg";
 import health from "../../assets/health.jpeg";
+import Footer from "../Footer";
 
 const CategoryCard = () => {
   const categories = [
@@ -71,14 +72,14 @@ const CategoryCard = () => {
   return (
     <div>
       <Header />
-      <div className="p-10 mt-20 relative overflow-hidden">
+      <div className="p-10 mt-[110px] relative bg-gray-300 min-h-screen"> {/* Ash background */}
         <motion.div
-          className="border border-gray-300 rounded-lg p-6 shadow-md relative"
+          className="border border-gray-300 rounded-lg p-6 shadow-md bg-white"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
-          <h2 className="text-xl font-bold mb-6 text-center">
+          <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
             Select a Category
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
@@ -108,6 +109,8 @@ const CategoryCard = () => {
           </div>
         </motion.div>
       </div>
+      <Footer />
+
     </div>
   );
 };

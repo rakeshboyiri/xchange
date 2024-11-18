@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   // Simulate a user object for demonstration
   const user = { name: "Rakesh", icon: "R" };
@@ -30,7 +32,7 @@ const Header = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="relative mx-6 w-[50%]">
+        <div className="relative mx-6 w-[50%] flex items-center">
           <input
             type="text"
             placeholder="Search..."
@@ -43,6 +45,18 @@ const Header = () => {
             🔍
           </button>
         </div>
+
+        {/* Chat Icon - Visible only when logged in */}
+        {isLoggedIn && (
+  <button
+    onClick={() => navigate("/chat")}
+    className="ml-6 text-3xl text-white hover:text-green-300 transition"
+    aria-label="Chat"
+  >
+    💬
+  </button>
+)}
+
 
         {/* User Profile & Login/Logout */}
         <div className="flex items-center space-x-4">
@@ -74,6 +88,8 @@ const Header = () => {
             </div>
           )}
         </div>
+
+        {/* Country Selector */}
         <div className="flex items-center space-x-4">
           <button
             className="px-4 py-2 bg-white text-green-500 rounded-full hover:bg-green-600 hover:text-white transition"
